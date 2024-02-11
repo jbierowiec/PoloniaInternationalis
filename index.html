@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>poloniainternationalis.org</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+            background-color: #fff;
+            color: #c00;
+		}
+
+		header {
+            background-color: #c00;
+			color: #fff;
+			padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+		}
+
+        .left-links a, .right-links button {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .left-links a:hover, .right-links button:hover {
+            color: #800;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }       
+
+        .left-links, .right-links {
+            display: flex;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 6px 0;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .bar {
+                display: block;
+            }
+
+            .links {
+                position: relative;
+            }
+
+            .left-links, .right-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px; /* Adjust this value as needed */
+                left: 0;
+                right: 0;
+                background-color: #c00;
+                z-index: 1;
+            }
+
+            .left-links a, .right-links button {
+                color: #fff;
+                text-decoration: none;
+                margin: 10px;
+                font-weight: bold;
+            }
+
+            .menu-open .left-links, .menu-open .right-links {
+                display: flex;
+            }
+        }
+
+		.dropdown {
+			margin-left: auto;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: white;
+			border: 1px solid black;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+		}
+
+		.dropdown-content a {
+			color: rgb(169, 169, 169);
+			padding: 5px 55px;
+			text-decoration: none;
+			display: block;
+			font-size: 20px;
+		}
+
+		.dropdown-content a:hover {
+			background-color: #f1f1f1;
+		}
+
+		#dropbtn, #modebtn {
+			background-color: transparent;
+			padding: 10px;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+			font-size: 20px;
+		}
+
+		.dark-mode-btn {
+  			background-color: #333;
+  			color: #fff;
+		}
+
+		.light-mode {
+  			background-color: #fff;
+  			color: #333;
+		}
+
+		.dark-mode {
+  			background-color: #333;
+  			color: #fff;
+		}
+
+		h1 {
+			text-align: center;
+            color: #c00;
+        }
+
+        hr {
+            border-color: #c00;
+        }
+
+		hr, .about, .mission, .product, .contact {
+			max-width: 1000px;
+			margin: auto;
+			width: 70%;
+			font-size: 20px;
+		}
+
+        .index, .about, .mission, .product, .contact {
+            padding-top: 100px;
+        }
+
+        .container {
+            width: 600px;
+            height: 300px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact input, .contact button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+
+        }
+
+        .contact textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        .contact button {
+            background-color: #c00;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .contact button:hover {
+            background-color: #800;
+        }
+
+		.images {
+			width: 50%;
+			margin: auto;
+			max-width: 1000px;
+		}
+
+		img {
+			width: 100%;
+            border: 2px solid red;
+		}	
+
+		a {
+			text-decoration: none;
+			color: #c00;
+		}
+
+		a:hover {
+			color: #800;
+		}
+
+        .card {
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+            margin: auto;
+            text-align: center;
+            border: 2px solid red;
+        }
+
+        .card h1 {
+            text-align: left;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            flex-direction: column;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .card-back a {
+            color: black;
+        }
+
+        .card-back a:hover {
+            color: #a7a7a7;
+        }
+
+        .wiki-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #c00;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .footer-content a {
+            color: #fff;
+        }
+
+        .footer-content a:hover {
+            color: #a7a7a7;
+        }
+
+		@media (min-width: 650px) {
+			.images {
+				width: 35%;
+			}
+		}
+
+        @media (max-width: 650px) {
+            .container {
+                width: 100%;
+            }
+        }
+
+		@media (min-width: 900px) {
+			.images {
+				width: 25%;
+			}
+		}
+
+        @media (max-width: 900px) {
+            .container {
+                width: 100%;
+            }
+        }
+	</style>
+</head>
+<body class="light-mode">
+    
+    <header>
+        <nav>
+            <!--<div class="logo">Polonia Internationalis</div>-->
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="links">
+                <div class="left-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#mission">Mission</a>
+                    <a href="#product">Our App</a>
+                    <a href="#contact">Contact</a>
+                    <a href="pp.html">Privacy Policy</a>
+                </div>
+                <div class="right-links">
+                    <div class="dropdown">
+                        <button id="modebtn" onclick="toggleMode()">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button id="dropbtn" onclick="toggleDropdown()">Languages</button>
+                        <div class="dropdown-content" id="dropdown-content">
+                            <a href="#" id="en">English</a>
+                            <a href="#" id="pl">Polish</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+	<br>
+	<h1 class="index" id="index">Polonia Internationalis</h1>
+	<br><br><br>
+	<hr>
+	<br><br><br>
+	<div class="images">
+		<img src="Polonia_Internationalis_Logo.png" alt="Polonia Internationalis Logo">
+	</div>
+	<br><br><br>
+	<hr>
+	<br><br><br>
+	<div class="about" id="about">
+        <h2>About Us</h2>
+        <p>Polonia Internationalis is a Polish-American start-up aimed to connect Polish people world-wide when visiting places they are unfamiliar with. Imagine you are a young Pole from Australia, wanting to visit New York City for the first time. Of course you know or heard about the Statue of Liberty, Times Square, or the Empire State Building, but do you know where Karczma is? Do you know where to buy Polish groceries? Of course everything can be found on the internet, but the idea of this organization is to have all Polish locations in one place for easy access.</p>
+	</div>
+	<br><br><br>
+	<hr>
+	<br><br><br>
+	<div class="mission" id="mission">
+		<h2>Our Mission</h2>
+        <p id="p1">For now, an app has been developed for (most) locations in NYC, however the goal is to connect with other Polish people around the world and encourage them to collect the locations of Polish churches, stores, businesses, and so on so that we can all connect with each other and promote our businesses wherever we go. Ideally, this organization would have an entire globe of Polish locations, from the rest of the United States, to countries like England, France, Germany, Argentina, Mexico, Australia, and much much more.</p>
+        <p id="p2">We also hope that Polish investors and sponsors can see the value of this undertaking, and help with the development process of this organization. This not only has the potential in creating a world-wide network of Polish people but for young Polish people, this can become an internship opportunity for Polish students pursuing careers in technology, design, history, and much much more.</p>
+	</div>
+	<br><br><br>
+	<hr>
+	<br><br><br>
+    <div class="product" id="product">
+        <h2>Our App</h2>
+    </div>
+    <div class="card" onclick="flipCard()">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="Polonia_Internationalis_Logo.png" alt="" style="max-width: 80%;">
+                <div >
+                    <p>Polonia Internationalis - NYC</p>
+                </div>
+            </div>
+            
+            <div class="card-back">
+                <p>This is the first app of which many updates are to come. Check it out by clicking the link below:</p>
+                <div class="wiki-link">
+                    <a href="https://en.wikipedia.org/wiki/Donald_Trump" target="_blank">Polonia Internationalis - NYC</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <hr>
+    <br><br><br>
+    <div class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <p>Hey there! If you would like to reach out regarding collaborating on this project, sponsoring this project, or would like to feature your business on the site and app, feel free to contact us here:</p>   
+        <br><br><br><br>              
+        <div class="container">
+            <form action="https://formspree.io/f/mlekbqbe" method="POST">
+                <input class="contact" type="text" name="Name" placeholder="Full Name" required>
+                <input class="contact" type="email" name="Email" placeholder="Email" required>
+                <textarea class="contact" name="Message" placeholder="Message" required></textarea>
+                <button class="contact" type="submit">Send</button>
+            </form>
+            
+        </div>
+        <br><br><br><br>
+    </div>
+	<hr>
+	<br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <footer>
+        <div class="footer-content">
+            <p>
+                <a class="footer-link" href="#home">Home</a> |
+                <a class="footer-link" href="#about">About Us</a> |
+                <a class="footer-link" href="#mission">Our Mission</a> |
+                <a class="footer-link" href="#product">Our App</a> |
+                <a class="footer-link" href="#contact">Contact Us</a> |
+                <a class="footer-link" href="pp.html">Privacy Policy</a>
+            </p>
+            <p>&copy; <span id="current-year"></span> Polonia Internationalis</p>
+        </div>
+    </footer>
+    
+	<script>
+        
+        let currentLanguage = 'en'
+        let previousContent
+      
+        const switchLanguage = (language, content) => {
+            const homeLink = document.querySelector('.left-links a[href="#home"]')
+            const aboutLink = document.querySelector('.left-links a[href="#about"]')
+            const missionLink = document.querySelector('.left-links a[href="#mission"]')
+            const productLink = document.querySelector('.left-links a[href="#product"]')
+            const contactLink = document.querySelector('.left-links a[href="#contact"]')
+            const privacyPolicyLink = document.querySelector('.left-links a[href="pp.html"]')
+
+		  	const aboutTitle = document.querySelector('.about h2')
+          	const aboutContent = document.querySelector('.about p')
+		  	const missionTitle = document.querySelector('.mission h2')
+		  	const missionContent1 = document.getElementById('p1')
+            const missionContent2 = document.getElementById('p2')
+            const productTitle = document.querySelector('.product h2')
+			const contactTitle = document.querySelector('.contact h2')
+			const contactContent = document.querySelector('.contact p')
+
+            const cardFrontText = document.querySelector('.card-front p')
+            const cardBackText = document.querySelector('.card-back p')
+
+            const contactNamePlaceholder = document.querySelector('.contact input[name="Name"]')
+            const contactEmailPlaceholder = document.querySelector('.contact input[name="Email"]')
+            const contactMessagePlaceholder = document.querySelector('.contact textarea')
+            const contactSendButton = document.querySelector('.contact button')
+
+            const footerLinks = document.querySelectorAll('.footer-link')
+
+
+          	switch (language) {
+            	case 'pl':
+
+                    homeLink.innerText = 'Strona Główna'
+                    aboutLink.innerHTML = 'O Nas'
+                    missionLink.innerText = 'Nasza Misja'
+                    productLink.innerText = 'Nasza Aplikacja'
+                    contactLink.innerText = 'Skontaktuj się z Nami'
+                    privacyPolicyLink.innerText = 'Polityka Prywatności'
+
+			  		aboutTitle.innerText = 'O Nas'
+              		aboutContent.innerText = 'Polonia Internationalis to polsko-amerykański start-up, którego celem jest łączenie Polaków na całym świecie podczas odwiedzania miejsc, których nie znają. Wyobraź sobie, że jesteś młodym Polakiem z Australii, który chce po raz pierwszy odwiedzić Nowy Jork. Oczywiście, że znasz lub słyszałeś o Statule Wolności, Times Square czy Empire State Building, ale czy wiesz, gdzie jest Karczma? Czy wiesz gdzie kupić polskie artykuły spożywcze? Oczywiście wszystko można znaleźć w Internecie, jednak ideą tej organizacji jest posiadanie wszystkich polskich lokalizacji w jednym miejscu, aby był do nich łatwy dostęp.'
+			  		missionTitle.innerText = 'Nasza Misja'
+					missionContent1.innerHTML = 'Na razie opracowano aplikację dla (większości) lokalizacji w Nowym Jorku, jednak jej celem jest nawiązanie kontaktu z innymi Polakami na całym świecie i zachęcenie ich do gromadzenia lokalizacji polskich kościołów, sklepów, firm itp., abyśmy mogli wszyscy łączyć się ze sobą i promować nasze firmy, gdziekolwiek się udamy. W idealnym przypadku organizacja ta miałaby wszstkie Polonijne lokalizacje na całym świecie, od reszty Stanów Zjednoczonych po kraje takie jak Anglia, Francja, Niemcy, Argentyna, Meksyk, Australia i wiele, wiele więcej.'
+                    missionContent2.innerHTML = 'Mamy także nadzieję, że polscy inwestorzy i sponsorzy dostrzegą wartość tego przedsięwzięcia i pomogą w procesie rozwoju tej organizacji. Ma to nie tylko potencjał w zakresie tworzenia ogólnoświatowej sieci Polaków, ale dla młodych Polaków może stać się okazją do odbycia stażu dla polskich studentów realizujących karierę w technologii, projektowaniu, historii i wielu innych dziedzinach.'
+					productTitle.innerHTML = 'Nasza Aplikacja'
+                    contactTitle.innerText = 'Skontaktuj się z Nami'
+					contactContent.innerHTML = 'Witaj! Jeśli chcesz skontaktować się z nami w sprawie współpracy przy tym projekcie, sponsorowania tego projektu lub chcesz zaprezentować swoją firmę w witrynie i aplikacji, skontaktuj się z nami tutaj:'
+
+                    cardFrontText.innerText = 'Polonia Internationalis - NYC'
+                    cardBackText.innerHTML = 'Jest to pierwsza aplikacja, do której będą dostępne liczne aktualizacje. Sprawdź ją, klikając poniższy link:'
+
+                    contactNamePlaceholder.placeholder = 'Imię i Nazwisko'
+                    contactEmailPlaceholder.placeholder = 'Adres Email'
+                    contactMessagePlaceholder.placeholder = 'Wiadomość'
+                    contactSendButton.innerText = 'Wyślij'
+
+                    footerLinks.forEach(link => {
+                        switch (link.innerText) {
+                            case 'Home':
+                                link.innerText = 'Strona Główna'
+                                break
+                            case 'About':
+                                link.innerText = 'O Nas'
+                                break
+                            case 'Our Mission':
+                                link.innerText = 'Nasza Misja'
+                                break
+                            case 'Our App':
+                                link.innerText = 'Nasza Aplikacja'
+                                break
+                            case 'Contact Us':
+                                link.innerText = 'Skontaktuj się z Nami'
+                                break
+                            case 'Privacy Policy':
+                                link.innerText = 'Polityka Prywatności'
+                                break
+                        }
+                    })
+
+              		break
+            	default:
+                    homeLink.innerText = 'Home'
+                    aboutLink.innerHTML = 'About'
+                    missionLink.innerText = 'Our Mission'
+                    productLink.innerText = 'Our App'
+                    contactLink.innerText = 'Contact Us'
+                    privacyPolicyLink.innerText = 'Privacy Policy'
+
+					aboutTitle.innerText = 'About Us'
+              		aboutContent.innerText = 'Polonia Internationalis is a Polish-American start-up aimed to connect Polish people world-wide when visiting places they are unfamiliar with. Imagine you are a young Pole from Australia, wanting to visit New York City for the first time. Of course you know or heard about the Statue of Liberty, Times Square, or the Empire State Building, but do you know where Karczma is? Do you know where to buy Polish groceries? Of course everything can be found on the internet, but the idea of this organization is to have all Polish locations in one place for easy access.';
+					missionTitle.innerText = 'Our Mission'
+					missionContent1.innerHTML = 'For now, an app has been developed for (most) locations in NYC, however the goal is to connect with other Polish people around the world and encourage them to collect the locations of Polish churches, stores, businesses, and so on so that we can all connect with each other and promote our businesses wherever we go. Ideally, this organization would have an entire globe of Polish locations, from the rest of the United States, to countries like England, France, Germany, Argentina, Mexico, Australia, and much much more.'
+                    missionContent2.innerHTML = 'We also hope that Polish investors and sponsors can see the value of this undertaking, and help with the development process of this organization. This not only has the potential in creating a world-wide network of Polish people but for young Polish people, this can become an internship opportunity for Polish students pursuing careers in technology, design, history, and much much more.'
+					productTitle.innerHTML = 'Our App'
+                    contactTitle.innerText = 'Contact Us'
+					contactContent.innerHTML = 'Hey there! If you would like to reach out regarding collaborating on this project, sponsoring this project, or would like to feature your business on the site and app, feel free to contact us here:'
+              		
+                    cardFrontText.innerText = 'Polonia Internationalis - NYC'
+                    cardBackText.innerHTML = 'This is the first app of which many updates are to come. Check it out by clicking the link below:'
+
+                    contactNamePlaceholder.placeholder = 'Full Name'
+                    contactEmailPlaceholder.placeholder = 'Email'
+                    contactMessagePlaceholder.placeholder = 'Message'
+                    contactSendButton.innerText = 'Send'
+
+                    footerLinks.forEach(link => {
+                        switch (link.innerText) {
+                            case 'Strona Główna':
+                                link.innerText = 'Home'
+                                break
+                            case 'O Nas':
+                                link.innerText = 'About'
+                                break
+                            case 'Nasza Misja':
+                                link.innerText = 'Our Mission'
+                                break
+                            case 'Nasza Aplikacja':
+                                link.innerText = 'Our App'
+                                break
+                            case 'Skontaktuj się z Nami':
+                                link.innerText = 'Contact Us'
+                                break
+                            case 'Polityka Prywatności':
+                                link.innerText = 'Privacy Policy'
+                                break
+                        }
+                    })
+
+                    break
+          	}
+          	currentLanguage = language;
+          	previousContent = content;
+        }
+      
+        const enLink = document.querySelector('#en')
+        const plLink = document.querySelector('#pl')
+      
+        enLink.addEventListener('click', () => {
+          	if (currentLanguage !== 'en') {
+            	switchLanguage('en', previousContent)
+          	}
+        })
+
+		plLink.addEventListener('click', () => {
+          	if (currentLanguage !== 'pl') {
+            	switchLanguage('pl', previousContent)
+          	}
+        })
+
+		function toggleMode() {
+  			const body = document.body;
+  			const modeBtn = document.getElementById('modebtn')
+  			const dropBtn = document.getElementById('dropbtn')
+			const dropdownContent = document.getElementById('dropdown-content')
+			const linkgithub = document.getElementById('a-github')
+			const linkemail = document.getElementById('a-email')
+			
+  			if (body.classList.contains('light-mode')) {
+    			body.classList.remove('light-mode')
+    			body.classList.add('dark-mode')
+				modeBtn.classList.add('dark-mode-btn')
+				dropBtn.classList.add('dark-mode-btn')
+				dropdownContent.classList.add('dark-mode-btn')
+				linkgithub.classList.add('dark-mode')
+				linkemail.classList.add('dark-mode')
+  			} else {
+    			body.classList.remove('dark-mode')
+    			body.classList.add('light-mode')
+				modeBtn.classList.remove('dark-mode-btn')
+				dropBtn.classList.remove('dark-mode-btn')
+				dropdownContent.classList.remove('dark-mode-btn')
+				linkgithub.classList.remove('dark-mode')
+				linkemail.classList.remove('dark-mode')	
+  			}
+		}
+
+		function toggleDropdown() {
+  			const dropdownContent = document.querySelector('.dropdown-content');
+  			dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+		}
+
+        function toggleMenu() {
+            const links = document.querySelector('.links');
+            links.classList.toggle('menu-open');
+        }
+
+
+        function flipCard() {
+            const card = document.querySelector('.card');
+            card.classList.toggle('flipped');
+        }
+
+        function updateYear() {
+            const yearElement = document.getElementById('current-year');
+            const currentYear = new Date().getFullYear();
+            yearElement.innerText = currentYear;
+        }
+
+        window.onload = updateYear;
+
+    </script>
+</body>
+</html>   

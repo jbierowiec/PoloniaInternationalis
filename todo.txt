@@ -1,0 +1,4 @@
+// To do list
+
+1. Add app link to the site
+2. Fix the link bugs between pages

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>poloniainternationalis.org</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+            background-color: #fff;
+            color: #c00;
+		}
+
+		header {
+            background-color: #c00;
+			color: #fff;
+			padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+		}
+
+        .left-links a, .right-links button {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .left-links a:hover, .right-links button:hover {
+            color: #800;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }       
+
+        .left-links, .right-links {
+            display: flex;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 6px 0;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .bar {
+                display: block;
+            }
+
+            .links {
+                position: relative;
+            }
+
+            .left-links, .right-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px; /* Adjust this value as needed */
+                left: 0;
+                right: 0;
+                background-color: #c00;
+                z-index: 1;
+            }
+
+            .left-links a, .right-links button {
+                color: #fff;
+                text-decoration: none;
+                margin: 10px;
+                font-weight: bold;
+            }
+
+            .menu-open .left-links, .menu-open .right-links {
+                display: flex;
+            }
+        }
+
+		.dropdown {
+			margin-left: auto;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: white;
+			border: 1px solid black;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+		}
+
+		.dropdown-content a {
+			color: rgb(169, 169, 169);
+			padding: 5px 55px;
+			text-decoration: none;
+			display: block;
+			font-size: 20px;
+		}
+
+		.dropdown-content a:hover {
+			background-color: #f1f1f1;
+		}
+
+		#dropbtn, #modebtn {
+			background-color: transparent;
+			padding: 10px;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+			font-size: 20px;
+		}
+
+		.dark-mode-btn {
+  			background-color: #333;
+  			color: #fff;
+		}
+
+		.light-mode {
+  			background-color: #fff;
+  			color: #333;
+		}
+
+		.dark-mode {
+  			background-color: #333;
+  			color: #fff;
+		}
+
+		h1 {
+			text-align: center;
+            color: #c00;
+        }
+
+        hr {
+            border-color: #c00;
+        }
+
+		hr, .pp, .privacy {
+			max-width: 1000px;
+			margin: auto;
+			width: 70%;
+			font-size: 20px;
+		}
+
+        .index, .about, .mission, .product, .contact {
+            padding-top: 100px;
+        }
+
+		.images {
+			width: 50%;
+			margin: auto;
+			max-width: 1000px;
+		}
+
+		img {
+			width: 100%;
+		}	
+
+		a {
+			text-decoration: none;
+			color: #c00;
+		}
+
+		a:hover {
+			color: #800;
+		}
+
+        footer {
+            background-color: #c00;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .footer-content a {
+            color: #fff;
+        }
+
+        .footer-content a:hover {
+            color: #a7a7a7;
+        }
+
+		@media (min-width: 650px) {
+			.images {
+				width: 35%;
+			}
+		}
+
+        @media (max-width: 650px) {
+            .container {
+                width: 100%;
+            }
+        }
+
+		@media (min-width: 900px) {
+			.images {
+				width: 25%;
+			}
+		}
+
+        @media (max-width: 900px) {
+            .container {
+                width: 100%;
+            }
+        }
+	</style>
+</head>
+<body class="light-mode">
+    
+    <header>
+        <nav>
+            <!--<div class="logo">Polonia Internationalis</div>-->
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="links">
+                <div class="left-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#mission">Mission</a>
+                    <a href="#product">Our App</a>
+                    <a href="#contact">Contact</a>
+                    <a href="pp.html">Privacy Policy</a>
+                </div>
+                <div class="right-links">
+                    <div class="dropdown">
+                        <button id="modebtn" onclick="toggleMode()">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button id="dropbtn" onclick="toggleDropdown()">Languages</button>
+                        <div class="dropdown-content" id="dropdown-content">
+                            <a href="#" id="en">English</a>
+                            <a href="#" id="pl">Polish</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+	<br>
+    <h1 id="title">Privacy Policy</h1>
+    <p class="pp" id="p">Thank you for choosing Polonia Internationalis! This Privacy Policy is designed to help you understand how we collect, use, and safeguard your information when you use our mobile application.</p>
+	<div class="privacy" id="pp">
+        <h2 id="h2-1">Information We Collect</h2>
+        <p id="p1">We want to assure you that Polonia Internationalis does not collect any personal information, including location data, from its users. Our application is designed to function solely based on the NYC geolocation you have created, and no data is stored or transmitted from the user's device.</p>
+        <h2 id="h2-2">Location Information</h2>
+        <p id="p2">Polonia Internationalis may request access to your device's location solely for the purpose of providing you with navigation services within New York City. However, it's important to note that no location data is collected or stored by Polonia Internationalis. The location information is only used locally on your device to provide you with the desired functionality.</p>
+        <h2 id="h2-3">Data Storage</h2>
+        <p id="p3">We do not store any user data on our servers. All information collected or generated by Polonia Internationalis is processed locally on your device and is not transmitted to external servers.</p>
+        <h2 id="h2-4">Security</h2>
+        <p id="p4">We take the security of your information seriously. Polonia Internationalis employs industry-standard security measures to protect your data from unauthorized access, disclosure, alteration, or destruction.</p>
+        <h2 id="h2-5">Third-Party Services</h2>
+        <p id="p5">Polonia Internationalis does not integrate with or use any third-party services that collect or process user data. Your privacy is our priority, and we have deliberately avoided incorporating any external services that could compromise it.</p>
+        <h2 id="h2-6">Children's Privacy</h2>
+        <p id="p6">Polonia Internationalis is not intended for use by individuals under the age of 13. We do not knowingly collect any personal information from children under 13. If you are a parent or guardian and become aware that your child has provided us with personal information, please contact us, and we will take steps to remove that information from our systems.</p>
+        <h2 id="h2-7">Changes to the Privacy Policy</h2>
+        <p id="p7">We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify users of any material changes by posting the updated Privacy Policy on our website or within the app.</p>
+        <h2 id="h2-8">Contact Us</h2>
+        <p id="p8">If you have any questions or concerns about this Privacy Policy or Polonia Internationalis, please contact us at <a href="index.html">Contact Us</a>.</p>
+        <br>
+        <p id="conclusion">By using the Polonia Internationalis App, you agree to the terms outlined in this Privacy Policy. Your privacy is important to us, and we are committed to maintaining the security and confidentiality of your information.</p>
+        <br>
+        <p id="thanks">Thank you for choosing the Polonia Internationalis App.</p>
+        <br>
+        <p><span id="current-year"></span></p>
+        <br>
+        <br>
+	</div>
+    <footer>
+        <div class="footer-content">
+            <p>
+                <a class="footer-link" href="#home">Home</a> |
+                <a class="footer-link" href="#about">About Us</a> |
+                <a class="footer-link" href="#mission">Our Mission</a> |
+                <a class="footer-link" href="#product">Our App</a> |
+                <a class="footer-link" href="#contact">Contact Us</a> |
+                <a class="footer-link" href="pp.html">Privacy Policy</a>
+            </p>
+            <p>&copy; <span id="current-year"></span> Polonia Internationalis</p>
+        </div>
+    </footer>
+    
+	<script>
+        
+        let currentLanguage = 'en'
+        let previousContent
+      
+        const switchLanguage = (language, content) => {
+            const homeLink = document.querySelector('.left-links a[href="#home"]')
+            const aboutLink = document.querySelector('.left-links a[href="#about"]')
+            const missionLink = document.querySelector('.left-links a[href="#mission"]')
+            const productLink = document.querySelector('.left-links a[href="#product"]')
+            const contactLink = document.querySelector('.left-links a[href="#contact"]')
+            const privacyPolicyLink = document.querySelector('.left-links a[href="pp.html"]')
+
+            const privacyTitle = document.getElementById('title')
+            const privacyContent = document.getElementById('p')
+
+            const privacyHeader1 = document.getElementById('h2-1')
+            const privacyHeader2 = document.getElementById('h2-2')
+            const privacyHeader3 = document.getElementById('h2-3')
+            const privacyHeader4 = document.getElementById('h2-4')
+            const privacyHeader5 = document.getElementById('h2-5')
+            const privacyHeader6 = document.getElementById('h2-6')
+            const privacyHeader7 = document.getElementById('h2-7')
+            const privacyHeader8 = document.getElementById('h2-8')
+            
+		  	const privacyContent1 = document.getElementById('p1')
+            const privacyContent2 = document.getElementById('p2')
+            const privacyContent3 = document.getElementById('p3')
+            const privacyContent4 = document.getElementById('p4')
+            const privacyContent5 = document.getElementById('p5')
+            const privacyContent6 = document.getElementById('p6')
+            const privacyContent7 = document.getElementById('p7')
+            const privacyContent8 = document.getElementById('p8')
+
+            const privacyConclusion = document.getElementById('conclusion')
+            const privacyThanks = document.getElementById('thanks')
+
+            const footerLinks = document.querySelectorAll('.footer-link')
+
+          	switch (language) {
+            	case 'pl':
+
+                    homeLink.innerText = 'Strona Główna'
+                    aboutLink.innerHTML = 'O Nas'
+                    missionLink.innerText = 'Nasza Misja'
+                    productLink.innerText = 'Nasza Aplikacja'
+                    contactLink.innerText = 'Skontaktuj się z Nami'
+                    privacyPolicyLink.innerText = 'Polityka Prywatności'
+
+                    privacyTitle.innerHTML = 'Polityka Prywatności'
+
+                    privacyContent.innerHTML = 'Dziękujemy za wybranie Polonii Internationalis! Niniejsza Polityka prywatności ma na celu pomóc Ci zrozumieć, w jaki sposób gromadzimy, wykorzystujemy i chronimy Twoje dane podczas korzystania z naszej aplikacji mobilnej.'
+
+                    privacyHeader1.innerHTML = 'Informacje Które Zbieramy'
+                    privacyHeader2.innerHTML = 'Informacje Lokalne'
+                    privacyHeader3.innerHTML = 'Przechowywanie Danych'
+                    privacyHeader4.innerHTML = 'Bezpieczeństwo'
+                    privacyHeader5.innerHTML = 'Usługi Stron Trzecich'
+                    privacyHeader6.innerHTML = 'Prywatność Dzieci'
+                    privacyHeader7.innerHTML = 'Zmiany w Polityce Prywatności'
+                    privacyHeader8.innerHTML = 'Skontaktuj się z nami'
+
+                    privacyContent1.innerHTML = 'Chcemy Cię zapewnić, że Polonia Internationalis nie zbiera żadnych danych osobowych, w tym danych o lokalizacji, od swoich użytkowników. Nasza aplikacja została zaprojektowana do działania wyłącznie w oparciu o utworzoną przez Ciebie geolokalizację Nowego Jorku i żadne dane nie są przechowywane ani przesyłane z urządzenia użytkownika.'
+                    privacyContent2.innerHTML = 'Polonia Internationalis może poprosić o dostęp do lokalizacji Twojego urządzenia wyłącznie w celu świadczenia Ci usług nawigacyjnych na terenie Nowego Jorku. Należy jednak pamiętać, że Polonia Internationalis nie gromadzi ani nie przechowuje żadnych danych lokalizacyjnych. Informacje o lokalizacji są wykorzystywane wyłącznie lokalnie na Twoim urządzeniu w celu zapewnienia żądanej funkcjonalności.'
+                    privacyContent3.innerHTML = 'Nie przechowujemy żadnych danych użytkowników na naszych serwerach. Wszelkie informacje zbierane lub generowane przez Polonia Internationalis przetwarzane są lokalnie na Twoim urządzeniu i nie są przesyłane do serwerów zewnętrznych.'
+                    privacyContent4.innerHTML = 'Poważnie podchodzimy do bezpieczeństwa Twoich informacji. Polonia Internationalis stosuje standardowe w branży środki bezpieczeństwa, aby chronić Twoje dane przed nieuprawnionym dostępem, ujawnieniem, zmianą lub zniszczeniem.'
+                    privacyContent5.innerHTML = 'Polonia Internationalis nie integruje się ani nie korzysta z usług podmiotów trzecich gromadzących lub przetwarzających dane użytkowników. Twoja prywatność jest naszym priorytetem i celowo unikaliśmy włączania jakichkolwiek usług zewnętrznych, które mogłyby ją naruszyć.'
+                    privacyContent6.innerHTML = 'Polonia Internationalis nie jest przeznaczona do użytku przez osoby poniżej 13 roku życia. Nie zbieramy świadomie żadnych danych osobowych od dzieci poniżej 13 roku życia. Jeśli jesteś rodzicem lub opiekunem i dowiesz się, że Twoje dziecko przekazało nam dane osobowe, prosimy o kontakt nas, a my podejmiemy kroki w celu usunięcia tych informacji z naszych systemów.'
+                    privacyContent7.innerHTML = 'Od czasu do czasu możemy aktualizować niniejszą Politykę prywatności, aby odzwierciedlić zmiany w naszych praktykach lub z innych powodów operacyjnych, prawnych lub regulacyjnych. Powiadomimy użytkowników o wszelkich istotnych zmianach, publikując zaktualizowaną Politykę prywatności na naszej stronie internetowej lub w aplikacji.'
+                    privacyContent8.innerHTML = 'Jeśli masz jakiekolwiek pytania lub wątpliwości dotyczące niniejszej Polityki prywatności lub Polonia Internationalis, skontaktuj się z nami pod adresem <a href="index.html">Skontaktuj się z nami</a>.'
+
+                    privacyConclusion.innerHTML = 'Korzystając z Aplikacji Polonia Internationalis wyrażasz zgodę na warunki określone w niniejszej Polityce Prywatności. Twoja prywatność jest dla nas ważna i zobowiązujemy się do zachowania bezpieczeństwa i poufności Twoich informacji.'
+                    
+                    privacyThanks.innerHTML = 'Dziękujemy za wybranie aplikacji Polonia Internationalis.'
+
+                    footerLinks.forEach(link => {
+                        switch (link.innerText) {
+                            case 'Home':
+                                link.innerText = 'Strona Główna'
+                                break
+                            case 'About':
+                                link.innerText = 'O Nas'
+                                break
+                            case 'Our Mission':
+                                link.innerText = 'Nasza Misja'
+                                break
+                            case 'Our App':
+                                link.innerText = 'Nasza Aplikacja'
+                                break
+                            case 'Contact Us':
+                                link.innerText = 'Skontaktuj się z Nami'
+                                break
+                            case 'Privacy Policy':
+                                link.innerText = 'Polityka Prywatności'
+                                break
+                        }
+                    })
+
+              		break
+            	default:
+                    homeLink.innerText = 'Home'
+                    aboutLink.innerHTML = 'About'
+                    missionLink.innerText = 'Our Mission'
+                    productLink.innerText = 'Our App'
+                    contactLink.innerText = 'Contact Us'
+                    privacyPolicyLink.innerText = 'Privacy Policy'
+
+                    privacyTitle.innerHTML = 'Privacy Policy'
+
+					privacyContent.innerHTML = 'Thank you for choosing Polonia Internationalis! This Privacy Policy is designed to help you understand how we collect, use, and safeguard your information when you use our mobile application.'
+
+                    privacyHeader1.innerHTML = 'Information We Collect'
+                    privacyHeader2.innerHTML = 'Location Information'
+                    privacyHeader3.innerHTML = 'Data Storage'
+                    privacyHeader4.innerHTML = 'Security'
+                    privacyHeader5.innerHTML = 'Third-Part Services'
+                    privacyHeader6.innerHTML = 'Children"s Privacy'
+                    privacyHeader7.innerHTML = 'Changes to the Privacy Policy'
+                    privacyHeader8.innerHTML = 'Contact Us'
+
+                    privacyContent1.innerHTML = 'We want to assure you that Polonia Internationalis does not collect any personal information, including location data, from its users. Our application is designed to function solely based on the NYC geolocation you have created, and no data is stored or transmitted from the user"s device.'
+                    privacyContent2.innerHTML = 'Polonia Internationalis may request access to your device"s location solely for the purpose of providing you with navigation services within New York City. However, it"s important to note that no location data is collected or stored by Polonia Internationalis. The location information is only used locally on your device to provide you with the desired functionality.'
+                    privacyContent3.innerHTML = 'We do not store any user data on our servers. All information collected or generated by Polonia Internationalis is processed locally on your device and is not transmitted to external servers.'
+                    privacyContent4.innerHTML = 'We take the security of your information seriously. Polonia Internationalis employs industry-standard security measures to protect your data from unauthorized access, disclosure, alteration, or destruction.'
+                    privacyContent5.innerHTML = 'Polonia Internationalis does not integrate with or use any third-party services that collect or process user data. Your privacy is our priority, and we have deliberately avoided incorporating any external services that could compromise it.'
+                    privacyContent6.innerHTML = 'Polonia Internationalis is not intended for use by individuals under the age of 13. We do not knowingly collect any personal information from children under 13. If you are a parent or guardian and become aware that your child has provided us with personal information, please contact us, and we will take steps to remove that information from our systems.'
+                    privacyContent7.innerHTML = 'We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify users of any material changes by posting the updated Privacy Policy on our website or within the app.'
+                    privacyContent8.innerHTML = 'If you have any questions or concerns about this Privacy Policy or Polonia Internationalis, please contact us at <a href="index.html">Contact Us</a>.'
+
+                    privacyConclusion.innerHTML = 'By using the Polonia Internationalis App, you agree to the terms outlined in this Privacy Policy. Your privacy is important to us, and we are committed to maintaining the security and confidentiality of your information.'
+                    
+                    privacyThanks.innerHTML = 'Thank you for choosing the Polonia Internationalis App.'
+
+                    footerLinks.forEach(link => {
+                        switch (link.innerText) {
+                            case 'Strona Główna':
+                                link.innerText = 'Home'
+                                break
+                            case 'O Nas':
+                                link.innerText = 'About'
+                                break
+                            case 'Nasza Misja':
+                                link.innerText = 'Our Mission'
+                                break
+                            case 'Nasza Aplikacja':
+                                link.innerText = 'Our App'
+                                break
+                            case 'Skontaktuj się z Nami':
+                                link.innerText = 'Contact Us'
+                                break
+                            case 'Polityka Prywatności':
+                                link.innerText = 'Privacy Policy'
+                                break
+                        }
+                    })
+              		
+                    break
+          	}
+          	currentLanguage = language;
+          	previousContent = content;
+        }
+      
+        const enLink = document.querySelector('#en')
+        const plLink = document.querySelector('#pl')
+      
+        enLink.addEventListener('click', () => {
+          	if (currentLanguage !== 'en') {
+            	switchLanguage('en', previousContent)
+          	}
+        })
+
+		plLink.addEventListener('click', () => {
+          	if (currentLanguage !== 'pl') {
+            	switchLanguage('pl', previousContent)
+          	}
+        })
+
+		function toggleMode() {
+  			const body = document.body;
+  			const modeBtn = document.getElementById('modebtn')
+  			const dropBtn = document.getElementById('dropbtn')
+			const dropdownContent = document.getElementById('dropdown-content')
+			const linkgithub = document.getElementById('a-github')
+			const linkemail = document.getElementById('a-email')
+			
+  			if (body.classList.contains('light-mode')) {
+    			body.classList.remove('light-mode')
+    			body.classList.add('dark-mode')
+				modeBtn.classList.add('dark-mode-btn')
+				dropBtn.classList.add('dark-mode-btn')
+				dropdownContent.classList.add('dark-mode-btn')
+				linkgithub.classList.add('dark-mode')
+				linkemail.classList.add('dark-mode')
+  			} else {
+    			body.classList.remove('dark-mode')
+    			body.classList.add('light-mode')
+				modeBtn.classList.remove('dark-mode-btn')
+				dropBtn.classList.remove('dark-mode-btn')
+				dropdownContent.classList.remove('dark-mode-btn')
+				linkgithub.classList.remove('dark-mode')
+				linkemail.classList.remove('dark-mode')	
+  			}
+		}
+
+		function toggleDropdown() {
+  			const dropdownContent = document.querySelector('.dropdown-content');
+  			dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+		}
+
+        function toggleMenu() {
+            const links = document.querySelector('.links');
+            links.classList.toggle('menu-open');
+        }
+
+        function updateYear() {
+            const yearElement = document.getElementById('current-year');
+            const currentYear = new Date().getFullYear();
+            yearElement.innerText = currentYear;
+        }
+
+        window.onload = updateYear;
+
+    </script>
+</body>
+</html>   
